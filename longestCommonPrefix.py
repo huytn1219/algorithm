@@ -2,25 +2,21 @@
 
 # If there is no common prefix, return an empty string "".
 
-# Using Vertical Scannings
+# Using Nick White method in which we sort the list of strings and choose the prefix as the first string.
+# Then iterate through the list from index 1. In each iteration, we will see if the string start with the prefix.
+# If not, reduce the prefix until we have the common prefix.
 # Time complexity is O(S) where S is the sum of all characters in all strings.
 # Space complexity is O(1).
 class Solution(object):
     def longestCommonPrefix(self, strs):
+        strs.sort()
         if len(strs) == 0:
             return ""
-        current = strs[0]
+        prefix = strs[0]
         for i in range(1, len(strs)):
-            temp = ""
-            if len(current) == 0:
-                break
-            for j in range(len(strs[i])):
-                if j < len(current) and current[j] == strs[i][j]:
-                    temp+=current[j]
-                else:
-                    break
-            current = temp
-        return current
+            while strs[i].startswith(prefix) == False:
+                prefix = prefix[:len(prefix) - 1]
+        return prefix
 
 input_list = ["school","schedule","scotland"]
 ob1 = Solution()
